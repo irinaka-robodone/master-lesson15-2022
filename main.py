@@ -4,9 +4,14 @@ root=tk.Tk()
 root.title("しりとり")
 root.geometry("800x600")
 
-def callback_func()
+def callback(event):
+    user_input = event.keysym
+    if user_input=="Return":
+        print("enter!")
+        check_siritori(Label["text"])
 
-
+# def callback_func(event):
+#     label["text"]=event.keysym
 
 def GetWord():
     if word_e.get()!="":
@@ -20,22 +25,27 @@ def check_siritori(word):
         for words in word_list:
             if words==word:
                 Label["text"]="重複するワードがあります"
+                word_e.delete(0,tk.END)
                 raise ValueError("重複するワードがあります")
         word_list.append(word)
 
     else:
         Label["text"]="しりとりになっていません"
+        word_e.delete(0,tk.END)
         raise ValueError("しりとりになっていません")
 
     if word[-1]=="ん":
         Label["text"]="「ん」で終わりました。しりとりを終了"
+        word_e.delete(0,tk.END)
         raise ValueError("しりとり終了")
+
+
 
     print(word_list)
     Label["text"]="今の文字は「"+word+"」です。次の文字を入力してください。"
     word_e.delete(0,tk.END)
 
-
+root.bind("<Key>",callback)
 
 Label = tk.Label(text="次の文字を入力してください。")
 Label.place(x=10,y=10)
