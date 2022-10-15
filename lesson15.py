@@ -10,7 +10,7 @@ def callback(event):
     if user_input=="Return":
         print("enter!")
         check_siritori(Label["text"])
-root.bind("<key>",callback)
+root.bind("<Key>",callback)
 
 def GetWord():
     if word_e.get()!='':
@@ -24,11 +24,13 @@ def check_siritori(word):
     if word[0]==word_list[-1][-1]:
         for words in word_list:
             if words==word:
-                Label["text"]="重複するワードがあります"
+                Label["text"]="["+word+"]は重複するワードです"
+                word_e.delete(0,tk.END)
                 raise ValueError("重複するワードがあります")
         word_list.append(word)
     else:
-        Label["text"]="しりとりになっていません"
+        Label["text"]="["+word+"]はしりとりになっていません"
+        word_e.delete(0,tk.END)
         raise ValueError("しりとりになっていません")
     if word[-1]=="ん":
         Label["text"]="「ん」でおわりました。しりとりを終了"
