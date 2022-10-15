@@ -5,6 +5,13 @@ root.geometry('500x180')
 Label=tk.Label(text='今の文字は「しりとり」です。次の文字を入力してください')
 Label.place(x=100,y=150)
 
+def callback(event):
+    user_input=event.keysym
+    if user_input=="Return":
+        print("enter!")
+        check_siritori(Label["text"])
+root.bind("<key>",callback)
+
 def GetWord():
     if word_e.get()!='':
         word=str(word_e.get())
